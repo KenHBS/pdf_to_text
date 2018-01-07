@@ -1,5 +1,3 @@
-# Transform PDFs in a folder to CSV files:
- 
 import os, csv, re
 import PyPDF2
 from optparse import OptionParser
@@ -77,14 +75,13 @@ def get_jel(text):
 def main():
     parser = OptionParser()
     parser.add_option("-f", dest="folder",
-                      help="absolute folder path with PDF files")
+                      help="absolute folder path with PDF files (required)")
     parser.add_option("-o", dest="opt",
-                      help="0 creates single csv files, 1 generates"
-                           "one csv file for the LDA thesis data prep",
-                      default=1, type=int)
-    parser.add_option("-d", dest="docname",
-                      help="save results as (only for opt=1", 
-                      default="results.csv")
+                      help="0: create CSV for each PDF (default)"
+                           "1: generates single CSV for the LDA thesis data "
+                           "data preparation (including JEL code and DOI "
+                           "extraction)",
+                      default=0, type=int)
     (options, args) = parser.parse_args()
     if not options.folder:
         parser.error("need to supply folder path (-f)")
