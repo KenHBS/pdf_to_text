@@ -91,7 +91,7 @@ def main():
         jels = [get_jel(text) for text in texts]
         texts = [clean_text(text) for text in texts]
         result = list(zip(ids, texts, jels))
-        with open(options.docname, 'w') as result_file:
+        with open("AEA_fulldocs.csv", 'w') as result_file:
             wr = csv.writer(result_file)
             for line in result:
                 wr.writerow(list(line))
