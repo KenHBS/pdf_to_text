@@ -45,11 +45,10 @@ def pdf_2_txt(docname):
 
 def clean_text(text):
     pat1 = "https://.*?(?=\\n)"
-    pat2 = "\w+([^\x00-\x7F]|\w+"
-    pat3 = "\\n"
+    pat2 = " American.*?(: [0-9]{1,4})Œ[0-9]{1,4}"
+    pat3 = "[^ -~]"
     pat4 = "(\(JEL)+(.*?)\)+"
-    pat5 = " American.*?(:  [0-9]{3})"
-    patterns = [pat1, pat2, pat3, pat4, pat5]
+    patterns = [pat1, pat2, pat3, pat4]
     for pat in patterns:
         text = re.subn(pat, "", text)[0]
     return text
