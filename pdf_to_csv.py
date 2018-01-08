@@ -44,10 +44,10 @@ def pdf_2_txt(docname):
 
 
 def clean_text(text):
-    pat1 = "https://.*?(?=\\n)"
-    pat2 = " American.*?(: [0-9]{1,4})Œ[0-9]{1,4}"
-    pat3 = "[^ -~]"
-    pat4 = "(\(JEL)+(.*?)\)+"
+    pat1 = "https://doi\..*?(?=\\n)"
+    pat2 = " American.*?(: [0-9]{1,4}).[0-9]{1,4}"
+    pat3 = "(\(JEL)+(.*?)\)+"
+    pat4 = "[^ a-zA-Z]"
     patterns = [pat1, pat2, pat3, pat4]
     for pat in patterns:
         text = re.subn(pat, "", text)[0]
@@ -55,7 +55,7 @@ def clean_text(text):
 
 
 def get_id(text):
-    pat = "https://.*?(?=\\n)"
+    pat = "https://doi\..*?(?=\\n)"
     try:
         return re.findall(pat, text)[0]
     except IndexError:
