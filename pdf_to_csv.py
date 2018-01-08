@@ -86,16 +86,17 @@ def main():
         parser.error("need to supply folder path (-f)")
 
     texts = pdfs_2_txt(options.folder)
-    texts = [clean_text(text) for text in texts]
     if options.opt == 1:
         ids = [get_id(text) for text in texts]
         jels = [get_jel(text) for text in texts]
+        texts = [clean_text(text) for text in texts]
         result = list(zip(ids, texts, jels))
         with open(options.docname, 'w') as result_file:
             wr = csv.writer(result_file)
             for line in result:
                 wr.writerow(list(line))
     elif options.opt == 0:
+        texts = [clean_text(text) for text in texts]
         files = os.listdir(options.folder)
         files = [file for file in files if ".pdf" in file]
         csv_names = [re.sub(".pdf", ".csv", file) for file in files]
