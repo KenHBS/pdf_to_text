@@ -44,7 +44,7 @@ def pdf_2_txt(docname):
 
 
 def clean_text(text):
-    pat1 = "https.*?(?=\\s)"
+    pat1 = "http(s|).*?(?=\\s)"
     pat2 = "(\(JEL)+(.*?)\)+"
     pat3 = "[^ a-zA-Z]"
     patterns = [pat1, pat2, pat3]
@@ -54,19 +54,27 @@ def clean_text(text):
 
 
 def get_id(text):
-    pat = "https://doi\..*?(?=\\s)"
+    pat = "(?:https?|ftp)://([^/\r\n]+)(/[^\r\n]*)?"
+    match_object = re.search(pat, text)
     try:
-        return re.findall(pat, text)[0]
-    except IndexError:
+        result = match_object.group()
+        return result
+    except AttributeError:
         return None
 
 
 def get_jel(text):
-    pat = "(?<=JEL )(.*?)(?=\))"
+    pat = "(?<=\(JEL ).*?([A-Z]\d{2}).*?(?=\))"
+    match_object = re.search(pat, text, flags=re.DOTALL)
     try:
-        jelcodes = re.findall(pat, text)[0]
-        return re.subn(",", "", jelcodes)[0]
-    except IndexError:
+        result = match_object.group()
+        match = re.subn("[^A-Z0-9 ]", "", result)[0]
+        check = re.match("[A-Z][0-9]{2}", match)
+        if check:
+            return match
+        else:
+            return None
+    except AttributeError:
         return None
 
 
