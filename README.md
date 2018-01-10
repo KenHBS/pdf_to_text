@@ -1,7 +1,7 @@
 # From PDF to text 
 `pdf_to_csv.py` takes a folder with PDFs and saves the text in the PDF as CSV (either seperately, or all at once).
 `LvB_PDF_2_CSV.R` downloads the academic articles of the Humboldt University Statistics department, extracts the text and saves
-it in a CSV document. This code is very specific and unlikely to be of general use. 
+it in a CSV document. `LvB_PDF_2_CSV.R` is very specific and unlikely to be of general use. 
 
 ## Usage
 Prequisites is a version of python with *PyPDF2* (version 1.5.3).
